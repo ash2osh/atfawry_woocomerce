@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @link              http://ash2osh.com
+ * @since             1.0.0
+ * @package           ash2osh_faw
+ *
+ * @wordpress-plugin
+ * Plugin Name:       ash2osh_faw
+ * Plugin URI:        http://ash2osh.com
+ * Description:       made by ash2osh for safkaonline site.
+ * Version:           1.0.0
+ * Author:            ash2osh
+ * Author URI:        http://ash2osh.com
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       ash2osh_faw
+ * Domain Path:       /languages
+ */
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+/**
+ * Check if WooCommerce is active
+ * */
+if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+    exit;
+}
+
+// gets the absolute path to this plugin directory
+function ash2osh_faw_plugin_path() {
+    return untrailingslashit(plugin_dir_path(__FILE__));
+}
+
+if (!defined('ASH2OSH_FAW_URL')) {
+    define('ASH2OSH_FAW_URL', plugin_dir_url(__FILE__));
+}
+
+define('ASH2OSH_FAW_TEXT_DOM', 'ash2osh_faw');
+
+//add class to woo commerce payment methods
+function add_ash2osh_faw_gateway_class($methods) {
+    $methods[] = 'WC_Gateway_ash2osh_faw';
+    return $methods;
+}
+
+add_filter('woocommerce_payment_gateways', 'add_ash2osh_faw_gateway_class');
+
+//register class
+function init_ash2osh_faw_gateway_class() {
+    require_once 'inc/WC_Gateway_ash2osh_faw.php';
+}
+
+add_action('plugins_loaded', 'init_ash2osh_faw_gateway_class');
+
