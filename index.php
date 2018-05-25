@@ -26,7 +26,10 @@ if (!defined('ABSPATH')) {
 if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
     exit;
 }
-
+////////////////CONSTANTS//////////////////////
+define('ASH2OSH_FAW_TEXT_DOM', 'ash2osh_faw');
+define('PAYMENT_METHOD','ash2osh_faw');
+//////////////////////////////////////////////
 // gets the absolute path to this plugin directory
 function ash2osh_faw_plugin_path() {
     return untrailingslashit(plugin_dir_path(__FILE__));
@@ -36,7 +39,7 @@ if (!defined('ASH2OSH_FAW_URL')) {
     define('ASH2OSH_FAW_URL', plugin_dir_url(__FILE__));
 }
 
-define('ASH2OSH_FAW_TEXT_DOM', 'ash2osh_faw');
+
 
 //add class to woo commerce payment methods
 function add_ash2osh_faw_gateway_class($methods) {
@@ -53,3 +56,5 @@ function init_ash2osh_faw_gateway_class() {
 
 add_action('plugins_loaded', 'init_ash2osh_faw_gateway_class');
 
+
+require_once 'inc/thankyoupage_customizer.php';
