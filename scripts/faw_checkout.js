@@ -11,10 +11,14 @@ function getLastPart(url) {
 (function ($) {
     'use strict';
     $(function () {
-$("#faw_checkout").data()
+        $("#faw_checkout").data()
         var merchant = "U93V9MYgl/M=";
         var locale = "ar-eg";
-     //   var merchantRefNum = "1234567"; //internal order nu
+        var mode = null
+        var orderExpiry = 48; //hours //TODO set to either settings or FINALE offer end 
+          var orderDesc = null;
+
+//   var merchantRefNum = "1234567"; //internal order nu
 //        var productsJSON = JSON.stringify(
 //                [{
 //                        "productSKU": "11112",
@@ -28,17 +32,17 @@ $("#faw_checkout").data()
 //                        "quantity": "1"
 //                    }]
 //                );
-        var customerName = null; //"safkaonline";
-        var mobile = "01002662707";
-        var email = "eng.shassan@gmail.com";
-        var mode = null
-        var customerId = "1016058"; //internal customer id
-        var orderDesc = "Some Description";
-        var orderExpiry = 48; //hours
+        //   var customerName = null; //"safkaonline";
+        //   var mobile = "01000000";
+        //   var email = "aaa@gmail.com";
+
+        //   var customerId = "1016058"; //internal customer id
+
+
 
 
         $("#faw_checkout").click(function () {
-         //   console.log(merchantRefNum);
+            //   console.log(merchantRefNum);
             loadFawryPluginPopup(merchant, locale, merchantRefNum,
                     productsJSON, customerName, mobile, email, mode, customerId, orderDesc,
                     orderExpiry);

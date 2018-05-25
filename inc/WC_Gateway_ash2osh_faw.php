@@ -23,6 +23,9 @@ class WC_Gateway_ash2osh_faw extends WC_Payment_Gateway {
 
         //you need to add a save hook for your settings:
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
+
+
+        add_action('woocommerce_api_' . strtolower(get_class($this)), array($this, 'callback_handler'));
     }
 
     /**
@@ -66,14 +69,14 @@ class WC_Gateway_ash2osh_faw extends WC_Payment_Gateway {
         global $woocommerce;
         $order = new WC_Order($order_id);
 
-         $order->update_meta_data('fawref', 'xxxx');
-         
-        // Mark as on-hold (we're awaiting the cheque)
-       // $order->update_status('on-hold', __('Awaiting fawry payment Confirmation', ASH2OSH_FAW_TEXT_DOM));
+        $order->update_meta_data('fawref', 'xxxx');
+
+        // Mark as on-hold (we're awaiting the callback)
+        $order->update_status('on-hold', __('Awaiting fawry payment Confirmation', ASH2OSH_FAW_TEXT_DOM));
 
         // Reduce stock levels
-          //this will enable stock timeout after the timeout the order is cancelled 
-         //you can disable stock or change timeout in settings ->products->inventory
+        //this will enable stock timeout after the timeout the order is cancelled 
+        //you can disable stock or change timeout in settings ->products->inventory
         $order->reduce_order_stock();
 
         // Remove cart
@@ -84,6 +87,19 @@ class WC_Gateway_ash2osh_faw extends WC_Payment_Gateway {
             'result' => 'success',
             'redirect' => $this->get_return_url($order)
         );
+    }
+
+    public function callback_handler() {
+//log the callback
+        global $wpdb;
+        $res = $wpdb->replace(
+                $wpdb->prefix . 'ash2osh_faw_callback_log', array(
+            'data_rec' => json_encode($_REQUEST)
+                ), array(
+            '%s',
+                )
+        );
+        //TODO handle callback
     }
 
 }

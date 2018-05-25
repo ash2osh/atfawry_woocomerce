@@ -46,15 +46,18 @@ function add_ash2osh_faw_gateway_class($methods) {
     $methods[] = 'WC_Gateway_ash2osh_faw';
     return $methods;
 }
-
 add_filter('woocommerce_payment_gateways', 'add_ash2osh_faw_gateway_class');
 
 //register class
 function init_ash2osh_faw_gateway_class() {
     require_once 'inc/WC_Gateway_ash2osh_faw.php';
 }
-
 add_action('plugins_loaded', 'init_ash2osh_faw_gateway_class');
 
-
+/////////////////includes////////////////////////
 require_once 'inc/thankyoupage_customizer.php';
+require_once 'inc/cancel_unpaid_on_hold_schedule.php';
+require_once 'inc/activation.php';
+require_once 'inc/callback.php';
+
+register_activation_hook( __FILE__, 'ash2osh_faw_activate' );

@@ -14,10 +14,16 @@ function ash2osh_faw_woo_change_order_received_text($str, $order) {
         
     }
     $new_str = __('Please Pay for the order using the below Button', ASH2OSH_FAW_TEXT_DOM);
-    $new_str .= '<br>' . getProductsJson($order->get_items());
+  //  $new_str .= '<br>' . getProductsJson($order->get_items());
     $new_str .= '<script> '
-            . 'var merchantRefNum= ' . $order->get_id() . ';'
-            . 'var productsJSON=JSON.stringify('.getProductsJson($order->get_items()).')'
+            . 'var merchantRefNum= "' . $order->get_id() . '";'
+            . 'var productsJSON=JSON.stringify('.getProductsJson($order->get_items()).');'
+            . 'var customerName= "' . $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(). '";'
+            . 'var  mobile = "' . $order->get_billing_phone() . '";'
+            . 'var  email = "' . $order->get_billing_email() . '";'
+            . 'var  customerId = "' . $order->get_customer_id() . '";'
+            
+            
             . '</script>';
     $new_str .= '<br>' . '<button id="faw_checkout" style="background-color: #ffd205;border: 1px solid #e7bf08;">
           <img  src="' . ASH2OSH_FAW_URL . 'images/logo_small.png"></button>';
