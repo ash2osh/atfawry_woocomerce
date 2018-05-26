@@ -1,10 +1,10 @@
 <?php
 
-class WC_Gateway_ash2osh_faw extends WC_Payment_Gateway {
+class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
 
     public function __construct() {
         global $woocommerce;
-        $this->id = ASH2OSH_FAW_TEXT_DOM;
+        $this->id = ASH2OSH_FAW_PAYMENT_METHOD;
         //  $this->method_title =__( '@Fawry',ASH2OSH_FAW_TEXT_DOM);
         $this->title = __('@Fawry', ASH2OSH_FAW_TEXT_DOM);
         $this->method_description = __('@Fawry Payment Method', ASH2OSH_FAW_TEXT_DOM);
@@ -24,7 +24,7 @@ class WC_Gateway_ash2osh_faw extends WC_Payment_Gateway {
         //you need to add a save hook for your settings:
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
 
-
+        //callback handle
         add_action('woocommerce_api_' . strtolower(get_class($this)), array($this, 'callback_handler'));
     }
 
@@ -60,6 +60,12 @@ class WC_Gateway_ash2osh_faw extends WC_Payment_Gateway {
                 'title' => __('Is Staging Environment', ASH2OSH_FAW_TEXT_DOM),
                 'type' => 'checkbox',
                 'label' => __('Enable staging (Testing) Environment'),
+                'default' => 'no'
+            ),
+              'unpaid_expire' => array(
+                'title' => __('Unpaid Order Expiry(Hours)', ASH2OSH_FAW_TEXT_DOM),
+                'type' => 'number',
+                'label' => __('Unpaid Order Expiration in hours(defualt is 48 hours)'),
                 'default' => 'no'
             ),
         );

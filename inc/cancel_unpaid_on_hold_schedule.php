@@ -3,19 +3,23 @@
 
 function ash2osh_faw_get_unpaid_submitted() {        
         global $wpdb;
-        
+          $options = get_option('woocommerce_' . ASH2OSH_FAW_PAYMENT_METHOD . '_settings');
+        $expire_hours =  $options['unpaid_expire'];
+        if(!trim($expire_hours)){
+            $expire_hours='48';
+        }
         $unpaid_submitted = $wpdb->get_col( $wpdb->prepare( "
                 SELECT posts.ID
                 FROM {$wpdb->posts} AS posts
                 WHERE posts.post_status = 'wc-on-hold'
                 AND posts.post_date < %s
-        ", date( 'Y-m-d H:i:s', strtotime('-1 hours') ) ) ); //TODO change to value setting by plugin
+        ", date( 'Y-m-d H:i:s', strtotime('-'.$expire_hours.' hours') ) ) ); 
         
         return $unpaid_submitted;
 }
 
 function ash2osh_faw_wc_cancel_unpaid_submitted() {        
-        $unpaid_submit = get_unpaid_submitted();
+        $unpaid_submit = ash2osh_faw_get_unpaid_submitted();
         
         if ( $unpaid_submit ) {                
                 foreach ( $unpaid_submit as $unpaid_order ) {                        
@@ -32,7 +36,7 @@ function ash2osh_faw_wc_cancel_unpaid_submitted() {
                                 }                                
                         }
                         if ( $cancel_order == True ) {
-                                $order -> update_status( 'cancelled', __( 'Unpaid submission expired after two days.', 'woocommerce') );
+                                $order -> update_status( 'cancelled', __( 'Unpaid submission expired after hours set in payment plugin options.', 'woocommerce') );
                         }
                 }
         }        
@@ -40,4 +44,4 @@ function ash2osh_faw_wc_cancel_unpaid_submitted() {
 add_action( 'woocommerce_cancel_unpaid_submitted', 'ash2osh_faw_wc_cancel_unpaid_submitted' );//for customization purposes
 
 
-wp_schedule_event(time(), 'hourly', 'ash2osh_faw_wc_cancel_unpaid_submitted');
+

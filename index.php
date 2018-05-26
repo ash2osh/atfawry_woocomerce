@@ -6,7 +6,7 @@
  * @package           ash2osh_faw
  *
  * @wordpress-plugin
- * Plugin Name:       ash2osh_faw
+ * Plugin Name:       @Fawry Payment
  * Plugin URI:        http://ash2osh.com
  * Description:       made by ash2osh for safkaonline site.
  * Version:           1.0.0
@@ -28,7 +28,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 }
 ////////////////CONSTANTS//////////////////////
 define('ASH2OSH_FAW_TEXT_DOM', 'ash2osh_faw');
-define('PAYMENT_METHOD','ash2osh_faw');
+define('ASH2OSH_FAW_PAYMENT_METHOD','ash2osh_faw');
 //////////////////////////////////////////////
 // gets the absolute path to this plugin directory
 function ash2osh_faw_plugin_path() {
@@ -43,14 +43,15 @@ if (!defined('ASH2OSH_FAW_URL')) {
 
 //add class to woo commerce payment methods
 function add_ash2osh_faw_gateway_class($methods) {
-    $methods[] = 'WC_Gateway_ash2osh_faw';
+    $methods[] = 'wc_gateway_at_fawry_payment';
     return $methods;
 }
 add_filter('woocommerce_payment_gateways', 'add_ash2osh_faw_gateway_class');
 
 //register class
 function init_ash2osh_faw_gateway_class() {
-    require_once 'inc/WC_Gateway_ash2osh_faw.php';
+    require_once 'inc/wc_gateway_at_fawry_payment.php';
+
 }
 add_action('plugins_loaded', 'init_ash2osh_faw_gateway_class');
 
@@ -58,6 +59,7 @@ add_action('plugins_loaded', 'init_ash2osh_faw_gateway_class');
 require_once 'inc/thankyoupage_customizer.php';
 require_once 'inc/cancel_unpaid_on_hold_schedule.php';
 require_once 'inc/activation.php';
-require_once 'inc/callback.php';
 
 register_activation_hook( __FILE__, 'ash2osh_faw_activate' );
+register_deactivation_hook(__FILE__, 'ash2osh_faw_deactivate');
+

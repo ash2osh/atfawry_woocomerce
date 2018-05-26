@@ -12,10 +12,9 @@ function getLastPart(url) {
     'use strict';
     $(function () {
         $("#faw_checkout").data()
-        var merchant = "U93V9MYgl/M=";
         var locale = "ar-eg";
         var mode = null
-        var orderExpiry = 48; //hours //TODO set to either settings or FINALE offer end 
+   //     var orderExpiry = 48; //hours
           var orderDesc = null;
 
 //   var merchantRefNum = "1234567"; //internal order nu
@@ -55,9 +54,14 @@ function getLastPart(url) {
 
 //user closed after completion
 function fawryCallbackFunction() {
-    // Your optional implementation which can be empty or you can remove the method at all
+    //TODO handle in html
+    //hide button
+    //change message
+    console.log('success');
 }
 //user cancelled
 function requestCanceldCallBack(merchantRefNum) {
-    // Your implementation to handle the cancelbutton
+    //TODO handle in html
+    //add payment failed under message
+    console.log('faild');
 }
