@@ -11,7 +11,7 @@ add_filter('woocommerce_thankyou_order_received_text', 'ash2osh_faw_woo_change_o
 function ash2osh_faw_woo_change_order_received_text($str, $order) {
     //  $new_str = sprintf( esc_html__( 'Please Pay for the order using the below Button', ASH2OSH_FAW_TEXT_DOM ), $count );
     if ($order->get_payment_method() == ASH2OSH_FAW_PAYMENT_METHOD && $order->get_status() == 'pending') {
-        
+        //TODO handle paid methods
     }
     $new_str = __('<h2>Please Pay for the order using the below Button</h2>', ASH2OSH_FAW_TEXT_DOM);
     //  $new_str .= '<br>' . getProductsJson($order->get_items());

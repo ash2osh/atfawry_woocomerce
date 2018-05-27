@@ -56,13 +56,21 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
                 'desc_tip' => true,
                 'placeholder' => ''
             ),
+            'hash_code' => array(
+                'title' => __('Hash Code', ASH2OSH_FAW_TEXT_DOM),
+                'type' => 'password',
+                'description' => __('Your Hash Code', ASH2OSH_FAW_TEXT_DOM),
+                'default' => '',
+                'desc_tip' => true,
+                'placeholder' => ''
+            ),
             'is_staging' => array(
                 'title' => __('Is Staging Environment', ASH2OSH_FAW_TEXT_DOM),
                 'type' => 'checkbox',
                 'label' => __('Enable staging (Testing) Environment'),
                 'default' => 'no'
             ),
-              'unpaid_expire' => array(
+            'unpaid_expire' => array(
                 'title' => __('Unpaid Order Expiry(Hours)', ASH2OSH_FAW_TEXT_DOM),
                 'type' => 'number',
                 'label' => __('Unpaid Order Expiration in hours(defualt is 48 hours)'),
@@ -96,7 +104,7 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
     }
 
     public function callback_handler() {
-//log the callback
+//log the callback in the database
         global $wpdb;
         $res = $wpdb->replace(
                 $wpdb->prefix . 'ash2osh_faw_callback_log', array(
@@ -106,6 +114,41 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
                 )
         );
         //TODO handle callback
+
+        $FawryRefNo = $_REQUEST['FawryRefNo']; //internal to fawry
+        $MerchnatRefNo = $_REQUEST['MerchnatRefNo'];
+        $OrderStatus = $_REQUEST['OrderStatus']; //New, PAID, CANCELED, DELIVERED, REFUNDED, EXPIRED
+        $Amount = $_REQUEST['Amount'];
+        $MessageSignature = $_REQUEST['MessageSignature'];
+
+
+        $expected_signature = $this->generateSignature($FawryRefNo, $Amount, $MerchnatRefNo, $OrderStatus);
+        //check signature
+        if ($expected_signature === $MessageSignature) {
+            //get order
+            $order = wc_get_order($MerchnatRefNo);
+            //check amount and  order status PAID
+            if ($Amount == $order->get_total() && $OrderStatus == 'PAID') {
+                $order->payment_complete();
+                echo 'SUCCESS';
+            } else {
+                echo 'FAILD';
+            }
+        } else {
+            echo 'INVALID_SIGNATURE';
+        }
+
+        // echo ‘SUCCESS’, ‘FAILD’,‘INVALID_SIGNATURE’
+        exit;
+    }
+
+    private function generateSignature($fawryRefNo, $amount, $merchantRefNum, $orderStatus) {
+        $options = get_option('woocommerce_' . ASH2OSH_FAW_PAYMENT_METHOD . '_settings');
+
+        $hashKey = trim($options['hash_code']);
+
+        $buffer = $hashKey . $amount . $fawryRefNo . $merchantRefNum . $orderStatus;
+        return md5($buffer);
     }
 
 }
