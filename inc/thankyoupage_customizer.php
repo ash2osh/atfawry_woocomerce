@@ -10,17 +10,19 @@ add_filter('woocommerce_thankyou_order_received_text', 'ash2osh_faw_woo_change_o
  */
 function ash2osh_faw_woo_change_order_received_text($str, $order) {
     //  $new_str = sprintf( esc_html__( 'Please Pay for the order using the below Button', ASH2OSH_FAW_TEXT_DOM ), $count );
-    if ($order->get_payment_method() == ASH2OSH_FAW_PAYMENT_METHOD && $order->get_status() == 'pending') {
-        //TODO handle paid methods
+    if ($order->get_payment_method() == ASH2OSH_FAW_PAYMENT_METHOD && $order->get_status() == 'on-hold') {
+        //continue 
+    } else {//other payment methods or already paid
+        return $str;
     }
     $new_str = __('<h2>Please Pay for the order using the below Button</h2>', ASH2OSH_FAW_TEXT_DOM);
     //  $new_str .= '<br>' . getProductsJson($order->get_items());
 //get the options //returns array 
     $options = get_option('woocommerce_' . ASH2OSH_FAW_PAYMENT_METHOD . '_settings');
-     $expire_hours =  $options['unpaid_expire'];
-        if(!trim($expire_hours)){
-            $expire_hours='48';
-        }
+    $expire_hours = $options['unpaid_expire'];
+    if (!trim($expire_hours)) {
+        $expire_hours = '48';
+    }
     $new_str .= '<script> '
             . 'var merchant= "' . $options['merchant_identifier'] . '";'
             . 'var merchantRefNum= "' . $order->get_id() . '";'
@@ -30,9 +32,19 @@ function ash2osh_faw_woo_change_order_received_text($str, $order) {
             . 'var  email = "' . $order->get_billing_email() . '";'
             . 'var  customerId = "' . $order->get_customer_id() . '";'
             . 'var  orderExpiry = "' . $expire_hours . '";'
+            . 'var  locale = "' . ( (strpos(get_locale(), 'ar') !== false) ? 'ar-eg' : 'en-gb') . '";'
             . '</script>';
-    $new_str .= '<br>' . '<button id="faw_checkout" style="background-color: #ffd205;border: 1px solid #e7bf08;">
+
+    if (wp_get_theme() == 'Avada') {
+        $new_str .= do_shortcode('[fusion_button link="#" text_transform="" title="" target="_self" link_attributes="" alignment="center" modal="" hide_on_mobile="small-visibility,medium-visibility,large-visibility" class="" '
+                . 'id="faw_checkout" color="default" button_gradient_top_color="" button_gradient_bottom_color="" button_gradient_top_color_hover="" button_gradient_bottom_color_hover="" accent_color="" accent_hover_color="" type="3d" bevel_color="" border_width="" size="large" stretch="default" shape="pill" icon="fa-money-bill-wave-alt fas" icon_position="left" icon_divider="no" animation_type="shake" animation_direction="left" animation_speed="0.3" animation_offset=""]Pay[/fusion_button]');
+    } else {
+        $new_str .= '<br>' . '<button id="faw_checkout" style="background-color: #ffd205;border: 1px solid #e7bf08;">
           <img  src="' . ASH2OSH_FAW_URL . 'images/logo_small.png"></button>';
+    }
+
+
+
     return $new_str;
     //TODO send mail with payment url (just in case ??)
 }

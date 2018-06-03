@@ -59,9 +59,11 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
             'hash_code' => array(
                 'title' => __('Hash Code', ASH2OSH_FAW_TEXT_DOM),
                 'type' => 'password',
-                'description' => __('Your Hash Code', ASH2OSH_FAW_TEXT_DOM),
+                'description' => __('Your Hash Code ', ASH2OSH_FAW_TEXT_DOM) . '<br>' . __(' The Callback URL is  : ', ASH2OSH_FAW_TEXT_DOM)
+                . '<strong>' . home_url() . '/wc-api/wc_gateway_at_fawry_payment</strong>'
+                ,
                 'default' => '',
-                'desc_tip' => true,
+                'desc_tip' => FALSE,
                 'placeholder' => ''
             ),
             'is_staging' => array(
@@ -76,6 +78,12 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
                 'label' => __('Unpaid Order Expiration in hours(defualt is 48 hours)'),
                 'default' => 'no'
             ),
+            'order_complete_after_payment' => array(
+                'label' => __('set order status to complete instead of processing after payment', ASH2OSH_FAW_TEXT_DOM),
+                'type' => 'checkbox',
+                'title' => __('Complete Order after payment', ASH2OSH_FAW_TEXT_DOM),
+                'default' => 'no'
+            ),
         );
     }
 
@@ -83,8 +91,7 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
         global $woocommerce;
         $order = new WC_Order($order_id);
 
-        $order->update_meta_data('fawref', 'xxxx');
-
+        //  $order->update_meta_data('fawref', 'xxxx');
         // Mark as on-hold (we're awaiting the callback)
         $order->update_status('on-hold', __('Awaiting fawry payment Confirmation', ASH2OSH_FAW_TEXT_DOM));
 
@@ -104,7 +111,7 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
     }
 
     public function callback_handler() {
-//log the callback in the database
+        //log the callback in the database
         global $wpdb;
         $res = $wpdb->replace(
                 $wpdb->prefix . 'ash2osh_faw_callback_log', array(
@@ -113,23 +120,32 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
             '%s',
                 )
         );
-        //TODO handle callback
+  
+
+        // handle callback
+        $options = get_option('woocommerce_' . ASH2OSH_FAW_PAYMENT_METHOD . '_settings');
 
         $FawryRefNo = $_REQUEST['FawryRefNo']; //internal to fawry
-        $MerchnatRefNo = $_REQUEST['MerchnatRefNo'];
+        $MerchantRefNo = $_REQUEST['MerchantRefNo'];
         $OrderStatus = $_REQUEST['OrderStatus']; //New, PAID, CANCELED, DELIVERED, REFUNDED, EXPIRED
         $Amount = $_REQUEST['Amount'];
         $MessageSignature = $_REQUEST['MessageSignature'];
 
+//echo $Amount;echo '-';echo $FawryRefNo ;echo '-';echo $MerchantRefNo;echo '-';echo $OrderStatus;echo '-';
 
-        $expected_signature = $this->generateSignature($FawryRefNo, $Amount, $MerchnatRefNo, $OrderStatus);
+        $expected_signature = $this->generateSignature($FawryRefNo, $Amount, $MerchantRefNo, $OrderStatus);
+        //echo $expected_signature;exit;
         //check signature
-        if ($expected_signature === $MessageSignature) {
+        if (strtoupper($expected_signature) === strtoupper($MessageSignature)) {
             //get order
-            $order = wc_get_order($MerchnatRefNo);
+            $order = wc_get_order($MerchantRefNo);
             //check amount and  order status PAID
             if ($Amount == $order->get_total() && $OrderStatus == 'PAID') {
                 $order->payment_complete();
+                if (trim($options['order_complete_after_payment']) === 'yes') {
+                    $order->update_status('completed');
+                }
+
                 echo 'SUCCESS';
             } else {
                 echo 'FAILD';
@@ -137,7 +153,6 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
         } else {
             echo 'INVALID_SIGNATURE';
         }
-
         // echo ‘SUCCESS’, ‘FAILD’,‘INVALID_SIGNATURE’
         exit;
     }

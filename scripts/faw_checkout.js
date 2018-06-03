@@ -12,33 +12,8 @@ function getLastPart(url) {
     'use strict';
     $(function () {
         $("#faw_checkout").data()
-        var locale = "ar-eg";
         var mode = null
-   //     var orderExpiry = 48; //hours
-          var orderDesc = null;
-
-//   var merchantRefNum = "1234567"; //internal order nu
-//        var productsJSON = JSON.stringify(
-//                [{
-//                        "productSKU": "11112",
-//                        "description": "Nokia.",
-//                        "price": "50",
-//                        "quantity": "2"
-//                    }, {
-//                        "productSKU": "87456",
-//                        "description": "Lenovo",
-//                        "price": "20",
-//                        "quantity": "1"
-//                    }]
-//                );
-        //   var customerName = null; //"safkaonline";
-        //   var mobile = "01000000";
-        //   var email = "aaa@gmail.com";
-
-        //   var customerId = "1016058"; //internal customer id
-
-
-
+        var orderDesc = null;
 
         $("#faw_checkout").click(function () {
             //   console.log(merchantRefNum);
@@ -48,16 +23,22 @@ function getLastPart(url) {
 
         });
 
+//auto click
+            $("#faw_checkout").trigger('click');
+
+
+
     }); //end $(function() {
 })(jQuery);
 
 
 //user closed after completion
 function fawryCallbackFunction() {
-    //TODO handle in html
-    //hide button
+
     //change message
     console.log('success');
+//reload
+    location.reload();
 }
 //user cancelled
 function requestCanceldCallBack(merchantRefNum) {
