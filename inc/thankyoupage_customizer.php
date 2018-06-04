@@ -89,7 +89,7 @@ function ash2osh_faw_scripts() {
         }
 
 
-        wp_enqueue_script('faw_checkout', plugin_dir_url(__DIR__) . 'scripts/faw_checkout.js', array('fawry_js'));
+        wp_enqueue_script('faw_checkout', plugin_dir_url(__DIR__) . 'scripts/faw_checkout.js', array('jquery','fawry_js'));
     }
 }
 

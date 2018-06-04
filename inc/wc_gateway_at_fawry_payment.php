@@ -132,7 +132,7 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
         $MessageSignature = $_REQUEST['MessageSignature'];
 
 //echo $Amount;echo '-';echo $FawryRefNo ;echo '-';echo $MerchantRefNo;echo '-';echo $OrderStatus;echo '-';
-
+        
         $expected_signature = $this->generateSignature($FawryRefNo, $Amount, $MerchantRefNo, $OrderStatus);
         //echo $expected_signature;exit;
         //check signature
