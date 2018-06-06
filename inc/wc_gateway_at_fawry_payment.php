@@ -5,9 +5,9 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
     public function __construct() {
         global $woocommerce;
         $this->id = ASH2OSH_FAW_PAYMENT_METHOD;
-        //  $this->method_title =__( '@Fawry',ASH2OSH_FAW_TEXT_DOM);
-        $this->title = __('@Fawry', ASH2OSH_FAW_TEXT_DOM);
-        $this->method_description = __('@Fawry Payment Method', ASH2OSH_FAW_TEXT_DOM);
+        //  $this->method_title =__( '@Fawry','ash2osh_faw');
+        $this->title = __('@Fawry', 'ash2osh_faw');
+        $this->method_description = __('@Fawry Payment Method', 'ash2osh_faw');
 
         // $this->load_plugin_textdomain();
         $this->icon = ASH2OSH_FAW_URL . '/images/logo_small.png';
@@ -37,29 +37,29 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
     function init_form_fields() {
         $this->form_fields = array(
             'enabled' => array(
-                'title' => __('Enable/Disable', ASH2OSH_FAW_TEXT_DOM),
+                'title' => __('Enable/Disable', 'ash2osh_faw'),
                 'type' => 'checkbox',
-                'label' => __('Enable the @Fawry gateway', ASH2OSH_FAW_TEXT_DOM),
+                'label' => __('Enable the @Fawry gateway', 'ash2osh_faw'),
                 'default' => 'yes'
             ),
             'description' => array(
-                'title' => __('Description', ASH2OSH_FAW_TEXT_DOM),
+                'title' => __('Description', 'ash2osh_faw'),
                 'type' => 'text',
-                'description' => __('This is the description the user sees during checkout.', ASH2OSH_FAW_TEXT_DOM),
-                'default' => __('Pay for your Order with any Credit or Debit Card or through Fawry Machines', ASH2OSH_FAW_TEXT_DOM)
+                'description' => __('This is the description the user sees during checkout.', 'ash2osh_faw'),
+                'default' => __('Pay for your Order with any Credit or Debit Card or through Fawry Machines', 'ash2osh_faw')
             ),
             'merchant_identifier' => array(
-                'title' => __('Merchant Identifier', ASH2OSH_FAW_TEXT_DOM),
+                'title' => __('Merchant Identifier', 'ash2osh_faw'),
                 'type' => 'text',
-                'description' => __('Your Merchant Identifier', ASH2OSH_FAW_TEXT_DOM),
+                'description' => __('Your Merchant Identifier', 'ash2osh_faw'),
                 'default' => '',
                 'desc_tip' => true,
                 'placeholder' => ''
             ),
             'hash_code' => array(
-                'title' => __('Hash Code', ASH2OSH_FAW_TEXT_DOM),
+                'title' => __('Hash Code', 'ash2osh_faw'),
                 'type' => 'password',
-                'description' => __('Your Hash Code ', ASH2OSH_FAW_TEXT_DOM) . '<br>' . __(' The Callback URL is  : ', ASH2OSH_FAW_TEXT_DOM)
+                'description' => __('Your Hash Code ', 'ash2osh_faw') . '<br>' . __(' The Callback URL is  : ', 'ash2osh_faw')
                 . '<strong>' . home_url() . '/wc-api/wc_gateway_at_fawry_payment</strong>'
                 ,
                 'default' => '',
@@ -67,21 +67,21 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
                 'placeholder' => ''
             ),
             'is_staging' => array(
-                'title' => __('Is Staging Environment', ASH2OSH_FAW_TEXT_DOM),
+                'title' => __('Is Staging Environment', 'ash2osh_faw'),
                 'type' => 'checkbox',
                 'label' => __('Enable staging (Testing) Environment'),
                 'default' => 'no'
             ),
             'unpaid_expire' => array(
-                'title' => __('Unpaid Order Expiry(Hours)', ASH2OSH_FAW_TEXT_DOM),
+                'title' => __('Unpaid Order Expiry(Hours)', 'ash2osh_faw'),
                 'type' => 'number',
                 'label' => __('Unpaid Order Expiration in hours(defualt is 48 hours)'),
                 'default' => 'no'
             ),
             'order_complete_after_payment' => array(
-                'label' => __('set order status to complete instead of processing after payment', ASH2OSH_FAW_TEXT_DOM),
+                'label' => __('set order status to complete instead of processing after payment', 'ash2osh_faw'),
                 'type' => 'checkbox',
-                'title' => __('Complete Order after payment', ASH2OSH_FAW_TEXT_DOM),
+                'title' => __('Complete Order after payment', 'ash2osh_faw'),
                 'default' => 'no'
             ),
         );
@@ -93,7 +93,7 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
 
         //  $order->update_meta_data('fawref', 'xxxx');
         // Mark as on-hold (we're awaiting the callback)
-        $order->update_status('on-hold', __('Awaiting fawry payment Confirmation', ASH2OSH_FAW_TEXT_DOM));
+        $order->update_status('on-hold', __('Awaiting fawry payment Confirmation', 'ash2osh_faw'));
 
         // Reduce stock levels
         //this will enable stock timeout after the timeout the order is cancelled 

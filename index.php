@@ -27,7 +27,6 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
     exit;
 }
 ////////////////CONSTANTS//////////////////////
-define('ASH2OSH_FAW_TEXT_DOM', 'ash2osh_faw');
 define('ASH2OSH_FAW_PAYMENT_METHOD','ash2osh_faw');
 //////////////////////////////////////////////
 // gets the absolute path to this plugin directory

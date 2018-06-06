@@ -9,13 +9,13 @@ add_filter('woocommerce_thankyou_order_received_text', 'ash2osh_faw_woo_change_o
  * @param  WC_Order $order
  */
 function ash2osh_faw_woo_change_order_received_text($str, $order) {
-    //  $new_str = sprintf( esc_html__( 'Please Pay for the order using the below Button', ASH2OSH_FAW_TEXT_DOM ), $count );
+    //  $new_str = sprintf( esc_html__( 'Please Pay for the order using the below Button', 'ash2osh_faw' ), $count );
     if ($order->get_payment_method() == ASH2OSH_FAW_PAYMENT_METHOD && $order->get_status() == 'on-hold') {
         //continue 
     } else {//other payment methods or already paid
         return $str;
     }
-    $new_str = __('<h2>Please Pay for the order using the below Button</h2>', ASH2OSH_FAW_TEXT_DOM);
+    $new_str = __('<h2>Please Pay for the order using the below Button</h2>', 'ash2osh_faw');
     //  $new_str .= '<br>' . getProductsJson($order->get_items());
 //get the options //returns array 
     $options = get_option('woocommerce_' . ASH2OSH_FAW_PAYMENT_METHOD . '_settings');

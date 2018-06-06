@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: @Fawry Payment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-04 23:06+0000\n"
+"POT-Creation-Date: 2018-06-06 20:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,12 +14,89 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
+#: inc/thankyoupage_customizer.php:18
+msgid "<h2>Please Pay for the order using the below Button</h2>"
+msgstr ""
+
+#: inc/activation.php:6
+msgid "fawrycallback"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:9
+msgid "@Fawry"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:10
+msgid "@Fawry Payment Method"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:40
+msgid "Enable/Disable"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:42
+msgid "Enable the @Fawry gateway"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:46
+msgid "Description"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:48
+msgid "This is the description the user sees during checkout."
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:49
+msgid ""
+"Pay for your Order with any Credit or Debit Card or through Fawry Machines"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:52
+msgid "Merchant Identifier"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:54
+msgid "Your Merchant Identifier"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:60
+msgid "Hash Code"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:62
+msgid "Your Hash Code "
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:62
+msgid " The Callback URL is  : "
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:70
+msgid "Is Staging Environment"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:76
+msgid "Unpaid Order Expiry(Hours)"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:82
+msgid "set order status to complete instead of processing after payment"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:84
+msgid "Complete Order after payment"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:96
+msgid "Awaiting fawry payment Confirmation"
+msgstr ""
+
 #. Name of the plugin
 msgid "@Fawry Payment"
 msgstr ""
 
-#. Author of the plugin
-msgid "ash2osh"
+#. Description of the plugin
+msgid "made by ash2osh for safkaonline site."
 msgstr ""
 
 #. URI of the plugin
@@ -27,6 +104,6 @@ msgstr ""
 msgid "http://ash2osh.com"
 msgstr ""
 
-#. Description of the plugin
-msgid "made by ash2osh for safkaonline site."
+#. Author of the plugin
+msgid "ash2osh"
 msgstr ""

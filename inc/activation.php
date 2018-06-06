@@ -3,7 +3,7 @@
 function pageDifinitions() {
     return array(
         'fawrycallback' => array(
-            'title' => __('fawrycallback', ASH2OSH_FAW_TEXT_DOM),
+            'title' => __('fawrycallback', 'ash2osh_faw'),
             'content' => ''
         ),
     );
