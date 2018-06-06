@@ -36,8 +36,9 @@ function ash2osh_faw_woo_change_order_received_text($str, $order) {
             . '</script>';
 
     if (wp_get_theme() == 'Avada') {
-        $new_str .= do_shortcode('[fusion_button link="#" text_transform="" title="" target="_self" link_attributes="" alignment="center" modal="" hide_on_mobile="small-visibility,medium-visibility,large-visibility" class="" '
-                . 'id="faw_checkout" color="default" button_gradient_top_color="" button_gradient_bottom_color="" button_gradient_top_color_hover="" button_gradient_bottom_color_hover="" accent_color="" accent_hover_color="" type="3d" bevel_color="" border_width="" size="large" stretch="default" shape="pill" icon="fa-money-bill-wave-alt fas" icon_position="left" icon_divider="no" animation_type="shake" animation_direction="left" animation_speed="0.3" animation_offset=""]Pay[/fusion_button]');
+        $new_str .= do_shortcode('[fusion_button link="#" text_transform="" title="" target="_self" link_attributes="" alignment="center" modal="" hide_on_mobile="small-visibility,medium-visibility,large-visibility" class="" id="faw_checkout" color="custom" button_gradient_top_color="#ffd205" button_gradient_bottom_color="#eac804" button_gradient_top_color_hover="#ffd205" button_gradient_bottom_color_hover="#ffd205" accent_color="" accent_hover_color="" type="3d" bevel_color="#049bce" border_width="" size="large" stretch="default" shape="pill" icon="" icon_position="left" icon_divider="no" animation_type="shake" animation_direction="left" animation_speed="0.3" animation_offset=""]'
+                . '  <img  src="' . ASH2OSH_FAW_URL . 'images/logo_small.png">'
+                . '[/fusion_button]');
     } else {
         $new_str .= '<br>' . '<button id="faw_checkout" style="background-color: #ffd205;border: 1px solid #e7bf08;">
           <img  src="' . ASH2OSH_FAW_URL . 'images/logo_small.png"></button>';
@@ -62,7 +63,7 @@ function getProductsJson($items) {
             'productSKU' => $data['product_id'],
             'description' => $data['name'],
             'quantity' => $data['quantity'],
-            'price' => $data['total'],
+            'price' => $data['total'] / $data['quantity'],
 //"width":"1",
 //      "height":"2",
 //      "length":"3",
