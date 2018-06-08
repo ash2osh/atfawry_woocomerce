@@ -1,0 +1,113 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: @Fawry Payment\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-06 20:31+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: inc/thankyoupage_customizer.php:18
+msgctxt ""
+"<h2>\n"
+"يرجى دفع ثمن الطلب باستخدام الزر أدناه</h2>"
+msgid "<h2>Please Pay for the order using the below Button</h2>"
+msgstr ""
+
+#: inc/activation.php:6
+msgid "fawrycallback"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:9
+msgid "@Fawry"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:10
+msgid "@Fawry Payment Method"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:40
+msgid ""
+"مفعل  / غير مفعل\n"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:42
+msgid ""
+"تمكين بوابةFawry@\n"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:46
+msgid "Description"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:48
+msgid "This is the description the user sees during checkout."
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:49
+msgid "ادفع  مع أي بطاقة ائتمان أو بطاقة خصم أو من خلال ماكينات فوري"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:52
+msgid "Merchant Identifier"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:54
+msgid "Your Merchant Identifier"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:60
+msgid "Hash Code"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:62
+msgid "Your Hash Code "
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:62
+msgid " The Callback URL is  : "
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:70
+msgid "بيئة اختبار ؟؟"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:76
+msgid "انتهاء صلاحية الطلب غير المدفوع (ساعات)"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:82
+msgid "تعيين حالة الطلب لإكمالها بدلاً من المعالجة بعد الدفع"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:84
+msgid "Complete Order after payment"
+msgstr ""
+
+#: inc/wc_gateway_at_fawry_payment.php:96
+msgid "Awaiting fawry payment Confirmation"
+msgstr ""
+
+#. Name of the plugin
+msgid "@Fawry Payment"
+msgstr ""
+
+#. Description of the plugin
+msgid "made by ash2osh for safkaonline site."
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "http://ash2osh.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "ash2osh"
+msgstr ""
