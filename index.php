@@ -58,6 +58,7 @@ add_action('plugins_loaded', 'init_ash2osh_faw_gateway_class');
 require_once 'inc/thankyoupage_customizer.php';
 require_once 'inc/cancel_unpaid_on_hold_schedule.php';
 require_once 'inc/activation.php';
+require_once 'inc/ajax_payment_sucess.php';
 
 register_activation_hook( __FILE__, 'ash2osh_faw_activate' );
 register_deactivation_hook(__FILE__, 'ash2osh_faw_deactivate');

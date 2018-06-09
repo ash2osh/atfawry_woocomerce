@@ -11,7 +11,12 @@ add_filter('woocommerce_thankyou_order_received_text', 'ash2osh_faw_woo_change_o
 function ash2osh_faw_woo_change_order_received_text($str, $order) {
     //  $new_str = sprintf( esc_html__( 'Please Pay for the order using the below Button', 'ash2osh_faw' ), $count );
     if ($order->get_payment_method() == ASH2OSH_FAW_PAYMENT_METHOD && $order->get_status() == 'on-hold') {
-        //continue 
+        //if taken fawry number 
+        if ($order->get_meta('_rec_faw_pay', TRUE) == 1) {
+            return $str;
+        }
+
+//continue 
     } else {//other payment methods or already paid
         return $str;
     }
@@ -81,7 +86,7 @@ function ash2osh_faw_scripts() {
         'siteurl' => get_option('siteurl'),
         'ajaxurl' => admin_url('admin-ajax.php'),
     );
-    wp_localize_script('ash2osh_cob', 'CB_PHPVAR', $php_vars); //SP_PHPVAR must be unqiue
+
     if (is_page('checkout')) {
         if ($isStaging) {
             wp_enqueue_script('fawry_js', 'https://atfawry.fawrystaging.com/ECommercePlugin/scripts/fawryPlugin.js');
@@ -90,7 +95,8 @@ function ash2osh_faw_scripts() {
         }
 
 
-        wp_enqueue_script('faw_checkout', plugin_dir_url(__DIR__) . 'scripts/faw_checkout.js', array('jquery','fawry_js'));
+        wp_enqueue_script('faw_checkout', plugin_dir_url(__DIR__) . 'scripts/faw_checkout.js', array('jquery', 'fawry_js'));
+        wp_localize_script('faw_checkout', 'FAW_PHPVAR', $php_vars); //FAW_PHPVAR name must be unqiue
     }
 }
 

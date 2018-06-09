@@ -1,5 +1,5 @@
 /* global CB_PHPVAR */
-//CB_PHPVAR => siteurl ajaxurl
+//FAW_PHPVAR => siteurl ajaxurl
 //gets url last part
 function getLastPart(url) {
     var parts = url.split("/");
@@ -24,9 +24,9 @@ function getLastPart(url) {
         });
 
 //auto click
-            $("#faw_checkout").trigger('click');
+        $("#faw_checkout").trigger('click');
 
-
+console.log(FAW_PHPVAR.ajaxurl);
 
     }); //end $(function() {
 })(jQuery);
@@ -36,9 +36,13 @@ function getLastPart(url) {
 function fawryCallbackFunction() {
 
     //change message
-    console.log('success');
-//reload
+    console.log(merchantRefNum);
+    jQuery.post(FAW_PHPVAR.ajaxurl, {"action": "ash2osh_faw_payment_recieved", "merchantRefNum": merchantRefNum}, function (response) {
+        console.log('Got this from the server: ' + response);
+        //reload
     location.reload();
+    });
+
 }
 //user cancelled
 function requestCanceldCallBack(merchantRefNum) {
