@@ -31,7 +31,7 @@ function ash2osh_faw_woo_change_order_received_text($str, $order) {
     $new_str .= '<script> '
             . 'var merchant= "' . $options['merchant_identifier'] . '";'
             . 'var merchantRefNum= "' . $order->get_id() . '";'
-            . 'var productsJSON=JSON.stringify(' . getProductsJson($order->get_items()) . ');'
+            . 'var productsJSON=JSON.stringify(' . getProductsJson($order,$options) . ');'
             . 'var customerName= "' . $order->get_billing_first_name() . ' ' . $order->get_billing_last_name() . '";'
             . 'var  mobile = "' . $order->get_billing_phone() . '";'
             . 'var  email = "' . $order->get_billing_email() . '";'
@@ -49,21 +49,32 @@ function ash2osh_faw_woo_change_order_received_text($str, $order) {
           <img  src="' . ASH2OSH_FAW_URL . 'images/logo_small.png"></button>';
     }
 
-
+   
 
     return $new_str;
     //TODO send mail with payment url (just in case ??)
 }
 
 /**
- * return the products as json array
+ * return the products as JSON array
  * 
- * @param WC_Order_Item[] $items
+ * @param WC_Order $order
  */
-function getProductsJson($items) {
+function getProductsJson($order,$options) {
+    $stupid_mode = $options['stupid_mode'];
+    if($stupid_mode=='yes'){
+         $arr[] = [
+            'productSKU' => $order->get_id(),
+            'description' => $order->get_id(),
+            'quantity' => 1,
+            'price' => $order->get_total()
+        ];
+    }else{
+    $items=$order->get_items();
     $arr = [];
     foreach ($items as $item) {
         $data = $item->get_data();
+    
         $arr[] = [
             'productSKU' => $data['product_id'],
             'description' => $data['name'],
@@ -75,6 +86,7 @@ function getProductsJson($items) {
 //      "weight":"600"
         ];
     }
+        }
     return json_encode($arr);
 }
 

@@ -84,6 +84,12 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
                 'title' => __('Complete Order after payment', 'ash2osh_faw'),
                 'default' => 'no'
             ),
+                'stupid_mode' => array(
+                'label' => __('enable order calculations based only on total price (that includes taxes and shipping)', 'ash2osh_faw'),
+                'type' => 'checkbox',
+                'title' => __('Enable Stupid Mode', 'ash2osh_faw'),
+                'default' => 'no'
+            ),
         );
     }
 
