@@ -9,7 +9,7 @@
 6. **DONE **  :smiley:
 
 
-### to enable the payment method and change 
+### to enable the payment method and change settins
 WooCommerce :arrow_right: settings :arrow_right: payments
 
 
