@@ -7,8 +7,8 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
         $this->id = ASH2OSH_FAW_PAYMENT_METHOD;
         //  $this->method_title =__( '@Fawry','ash2osh_faw');
         $this->title = __('@Fawry', 'ash2osh_faw');
-        $this->method_description = __('@Fawry Payment Method', 'ash2osh_faw');
-
+        $this->description = $this->get_option('description','ash2osh_faw');
+		
         // $this->load_plugin_textdomain();
         $this->icon = ASH2OSH_FAW_URL . '/images/logo_small.png';
         $this->has_fields = FALSE;
@@ -154,8 +154,11 @@ class wc_gateway_at_fawry_payment extends WC_Payment_Gateway {
 
                 echo 'SUCCESS';
             } else {
+			if ($Amount == $order->get_total() && $OrderStatus == 'EXPIRED') {
+                $order->update_status('cancelled');
                 echo 'FAILD';
             }
+			}
         } else {
             echo 'INVALID_SIGNATURE';
         }
